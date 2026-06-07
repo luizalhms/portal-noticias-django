@@ -1,0 +1,19 @@
+{% extends 'noticias/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-5">
+                <h1 class="mb-3">Excluir tarefa</h1>
+                <p>Tem certeza que deseja excluir a tarefa <strong>{{ tarefa.titulo }}</strong>?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <a href="{% url 'admin_tarefas' %}" class="btn btn-outline-secondary ms-2">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

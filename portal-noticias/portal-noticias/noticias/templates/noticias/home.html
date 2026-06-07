@@ -1,0 +1,61 @@
+{% extends 'noticias/base.html' %}
+
+{% block content %}
+<section class="hero-section p-5 mb-5 shadow-sm">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <span class="badge bg-white text-primary mb-3">Notícias da comunidade</span>
+            <h1 class="display-5 fw-bold">Conteúdo relevante, direto para seus leitores.</h1>
+            <p class="lead text-white opacity-85 mb-4">Descubra matérias novas, filtre por palavra-chave e publique notícias com imagem de capa e estatísticas de visualização.</p>
+            <div class="d-flex flex-wrap gap-2">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-light btn-lg" href="{% url 'noticia_create' %}">Publicar notícia</a>
+                {% else %}
+                    <a class="btn btn-outline-light btn-lg" href="{% url 'login' %}">Faça login</a>
+                    <a class="btn btn-light btn-lg" href="{% url 'register' %}">Criar conta</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" class="img-fluid rounded-4 shadow-lg" alt="Portal de notícias" />
+        </div>
+    </div>
+</section>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+    <div>
+        <h2 class="h3 mb-1">Últimas notícias</h2>
+        <p class="text-muted mb-0">Acompanhe as matérias publicadas pela equipe.</p>
+    </div>
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="{% url 'noticia_create' %}">Nova notícia</a>
+    {% endif %}
+</div>
+{% if noticias.exists %}
+<div class="row gy-4">
+    {% for noticia in noticias %}
+        <div class="col-md-6">
+            <div class="card noticia-card h-100 shadow-sm">
+                {% if noticia.imagem %}
+                    <img src="{{ noticia.imagem.url }}" class="card-img-top" alt="Capa da notícia">
+                {% else %}
+                    <img src="https://via.placeholder.com/800x420?text=Sem+imagem" class="card-img-top" alt="Sem imagem">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ noticia.titulo }}</h5>
+                    <p class="mb-1">
+                        <span class="badge bg-secondary badge-categoria">{{ noticia.categoria }}</span>
+                    </p>
+                    <p class="card-text text-truncate">{{ noticia.conteudo|truncatechars:150 }}</p>
+                    <div class="mt-auto">
+                        <p class="text-muted mb-1">Por {{ noticia.autor.username }} · {{ noticia.data_publicacao|date:'d/m/Y H:i' }}</p>
+                        <a href="{% url 'noticia_detail' noticia.pk %}" class="btn btn-outline-primary btn-sm">Ver notícia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="alert alert-info">Nenhuma notícia encontrada.</div>
+{% endif %}
+{% endblock %}

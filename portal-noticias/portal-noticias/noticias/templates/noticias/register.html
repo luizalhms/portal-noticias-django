@@ -1,0 +1,44 @@
+{% extends 'noticias/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-5">
+                <div class="mb-4">
+                    <h2 class="fw-bold">Crie sua conta</h2>
+                    <p class="text-muted">Cadastre-se para começar a publicar notícias no portal.</p>
+                </div>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="mb-3">
+                        <label class="form-label">Nome de usuário</label>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Senha</label>
+                        {{ form.password1 }}
+                        {{ form.password1.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirmar senha</label>
+                        {{ form.password2 }}
+                        {{ form.password2.errors }}
+                    </div>
+                    <div class="d-grid gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg">Já tenho conta</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

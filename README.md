@@ -123,6 +123,7 @@ Adicionar imagens das principais telas do sistema:
 
 ## Diagrama Entidade-Relacionamento:
 
+<img width="648" height="452" alt="Captura de tela 2026-06-07 210414" src="https://github.com/user-attachments/assets/d8b0b295-7dbc-491e-89be-3a2646c10760" />
 
 
 
